@@ -30,6 +30,14 @@ component singleton threadsafe{
 		var salt = variables.BCrypt.genSalt( javaCast( "int", arguments.workFactor ) );
 		return variables.BCrypt.hashpw( password, salt );
 	}
+
+	public string function hashPW( required string password, workFactor=variables.settings.workFactor) {
+		return hashPassword(argumentCollection=arguments);
+	}
+
+	public string function genSalt(numeric workFactor = variables.settings.workFactor) {
+		return variables.BCrypt.genSalt(javaCast("int",arguments.workFactor));
+	}
 	
 	/**
 	* Check a password
@@ -39,6 +47,11 @@ component singleton threadsafe{
 	public boolean function checkPassword( required string candidate, required string bCryptHash ){
 		return variables.BCrypt.checkpw( candidate, bCryptHash );
 	}
+
+	public boolean function checkPW( required string candidate, required string bCryptHash ){
+		return checkPassword(argumentCollection=arguments);
+	}
+
 	
 	/**
 	* Load the library
